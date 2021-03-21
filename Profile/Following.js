@@ -51,9 +51,7 @@ function FollowingCount ({ containerStyle, iconName, FollowingCount }) {
       <View style={[styles.container, containerStyle]}>
         <View style={styles.iconRow}>
           <View style={styles.iconNameColumn}>
-            {iconName.length !== 0 && (
-              <Text style={styles.iconNameText}>{iconName}</Text>
-            )}
+            <Text style={styles.iconNameText}>{iconName}</Text>
           </View>
           <Icon
               name="group"

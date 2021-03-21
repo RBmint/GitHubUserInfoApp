@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   scroll: {
     backgroundColor: '#FFF',
   },
-  userAddressRow: {
+  iconNameRow: {
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -114,13 +114,12 @@ class Contact extends Component {
               source={{uri: avatar}}
             />
             <Text style={styles.NameText}>{name}</Text>
-            <View style={styles.userAddressRow}>
+            <View style={styles.iconNameRow}>
               <View>              
                 <Icon
                   name="account-circle"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
-                  onPress={this.onPressPlace}
                 />
               </View>
               <View style={styles.usernameRow}>
@@ -141,7 +140,6 @@ class Contact extends Component {
       data={this.props.emails}
       renderItem={(list) => {
         const { email, id, iconName } = list.item
-
         return (
           <Email
             key={`email-${id}`}
@@ -159,7 +157,6 @@ class Contact extends Component {
       data={this.props.emails}
       renderItem={(list) => {
         const { email, id, iconName } = list.item
-
         return (
           <Emailtest
             key={`email-${id}`}
