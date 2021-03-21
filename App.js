@@ -1,21 +1,66 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Button, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import contactData from './mocks/contact.json'
+import Profile from './Profile'
 
-export default function App() {
+
+function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1,alignItems:'center', justifyContent:'center'  }}>
+      <Text>
+        This is currently empty!
+      </Text>
+      <Button onPress={() => navigation.navigate('Profile')} title="See profile screen" />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function ProfileScreen(navigation) {
+  return (
+    <Profile {...contactData}/> 
+  )
+}
+
+function RepositoriesScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button onPress={() => navigation.goBack()} title="Go back" />
+    </View>
+  );
+}
+
+function FollowersScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text> Empty Follower Screen to be implemented next week.</Text>
+      <Button onPress={() => navigation.goBack()} title="Go back" />
+    </View>
+  );
+}
+
+function FollowingScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text> Empty Following Screen to be implemented next week.</Text>
+      <Button onPress={() => navigation.goBack()} title="Go back" />
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="Repositories" component={RepositoriesScreen}/>
+        <Drawer.Screen name="Followers" component={FollowersScreen}/>
+        <Drawer.Screen name="Following" component={FollowingScreen}/>
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}

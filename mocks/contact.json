@@ -1,0 +1,28 @@
+{
+  "name": "Royce Zhai",
+  "username": "RBmint",
+  "avatar": "https://i.imgur.com/GfkNpVG.jpg",
+  "avatarBackground":
+    "https://i.imgur.com/rXVcgTZ.jpg",
+  "emails": [
+    { "id": 1, "iconName": "Email", "email": "mzhai4@illinois.edu" }
+  ],
+  "bio":[
+    { "id": 1, "iconName":"Bio", "bio" : "Tomoya Okazaki is the male protagonist of the Clannad series and the playable character in the visual novel. At the beginning of the storyline, he is a 17 years old student attending Hikarizaka Private High School, but was widely known as a delinquent. His best friend is Youhei, and he forms close friendships with numerous other characters throughout the storyline. Tomoya has a strained relationship with his father, and after gaining the trust of the Furukawa family, he moves into their bakery."}
+  ],
+  "website":[
+    { "id": 1, "iconName":"Website", "website" : "github.com"}
+  ],
+  "profile_cd":[
+    { "id": 1, "iconName":"Profile Creation Date", "profile_cd" : "2017-8-28"}
+  ],
+  "repocount":[
+    { "id": 1, "iconName":"Repo Count", "repocount" : "1234"}
+  ],
+  "followerCount":[
+    { "id": 1, "iconName":"Follower Count", "followerCount" : "2333"}
+  ],
+  "followingCount":[
+    { "id": 1, "iconName":"Following Count", "followingCount" : "666"}
+  ]
+}
