@@ -1,6 +1,7 @@
 {
   "name": "Royce Zhai",
   "username": "RBmint",
+  "publicrepo" : "Public Repositories",
   "avatar": "https://i.imgur.com/GfkNpVG.jpg",
   "avatarBackground":
     "https://i.imgur.com/rXVcgTZ.jpg",
@@ -24,5 +25,9 @@
   ],
   "followingCount":[
     { "id": 1, "iconName":"Following Count", "followingCount" : "666"}
+  ],
+  "repo1":[
+    { "id" :1, "repoName":"assignment1.0", "ownerName": "rbmint", "repoDesc" : "cs242 assignment1, uno card game. Written in java and running using a commandline interface. support multiplayer with two different types of AI players."}
   ]
+
 }

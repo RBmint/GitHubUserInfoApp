@@ -5,7 +5,7 @@ import { Button, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import contactData from './mocks/contact.json'
 import Profile from './Profile'
-
+import Repo from './Repo'
 
 function HomeScreen({ navigation }) {
   return (
@@ -26,9 +26,10 @@ function ProfileScreen(navigation) {
 
 function RepositoriesScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back" />
-    </View>
+    <Repo {...contactData}/>
+    // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    //   <Button onPress={() => navigation.goBack()} title="Go back" />
+    // </View>
   );
 }
 
