@@ -56,7 +56,7 @@ function FollowerCount ({ containerStyle, iconName, followerCount }) {
             )}
           </View>
           <Icon
-              name="people"
+              name="person-add"
               underlayColor="transparent"
               iconStyle={styles.icon}
           />

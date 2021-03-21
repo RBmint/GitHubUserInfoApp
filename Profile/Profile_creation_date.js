@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: 'gray',
-    fontSize: 30,
+    fontSize: 40,
   },
   row: {
     flex: 8,

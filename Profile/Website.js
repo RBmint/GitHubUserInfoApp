@@ -51,7 +51,7 @@ const Website = ({ containerStyle, iconName, website }) => (
         )}
       </View>
       <Icon
-          name="bookmarks"
+          name="explore"
           underlayColor="transparent"
           iconStyle={styles.icon}
       />

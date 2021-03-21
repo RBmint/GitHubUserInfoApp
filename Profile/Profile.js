@@ -117,7 +117,7 @@ class Contact extends Component {
             <View style={styles.userAddressRow}>
               <View>              
                 <Icon
-                  name="person"
+                  name="account-circle"
                   underlayColor="transparent"
                   iconStyle={styles.placeIcon}
                   onPress={this.onPressPlace}
@@ -286,15 +286,15 @@ class Contact extends Component {
             {Separator()}
             {this.renderWebsite()}
             {Separator()}
-            {this.renderBio()}
-            {Separator()}
-            {this.renderProfileCreationDate()}
+            {this.renderBio()}        
             {Separator()}
             {this.renderRepoCount()}
             {Separator()}
             {this.renderFollowerCount()}
             {Separator()}
             {this.renderFollowingCount()}
+            {Separator()}
+            {this.renderProfileCreationDate()}
           </Card>
         </View>
       </ScrollView>
