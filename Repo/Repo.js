@@ -97,7 +97,7 @@ class Contact extends Component {
       edges: response.data.viewer.repositories.edges
     })
   }
-  
+
   renderHeader = () => {
     const {
       avatarBackground,
