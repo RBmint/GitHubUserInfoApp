@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders the repository count card in the profile page and is touchable
+ * that would navigate to the repository count page.
+ * @param {*} param0 a list of items
+ * @returns the repository count card
+ */
 function RepoCount ({ containerStyle, iconName, RepoCount }) {
   const navigation = useNavigation();
   return (

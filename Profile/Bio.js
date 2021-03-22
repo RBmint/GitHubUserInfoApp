@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Render the bio card in profile page.
+ * @param {*} param0 a list of items
+ * @returns the bio card
+ */
 const Bio = ({ containerStyle, iconName, bio }) => (
   <View style={[styles.container, containerStyle]}>
     <View style={styles.iconRow}>

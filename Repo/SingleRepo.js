@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders one repository with the data needed.
+ * @param {*} param0 a list of items
+ * @returns A single repository from user's public repositories.
+ */
 function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc }) {
   return (
     <View>

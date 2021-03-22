@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders the email card in the profile page.
+ * @param {*} param0 a list of items
+ * @returns the email card
+ */
 const Email = ({ containerStyle, iconName, email }) => (
   <View style={[styles.container, containerStyle]}>
     <View style={styles.iconRow}>

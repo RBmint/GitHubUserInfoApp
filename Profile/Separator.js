@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * A custom separator line to separate the cards in the view.
+ * @returns the separator
+ */
 const Separator = () => (
   <View style={styles.container}>
     <View style={styles.separatorOffset} />

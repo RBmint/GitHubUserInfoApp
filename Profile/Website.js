@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders the website card in the profile page.
+ * @param {*} param0 a list of items
+ * @returns the website card
+ */
 const Website = ({ containerStyle, iconName, website }) => (
   <View style={[styles.container, containerStyle]}>
     <View style={styles.iconRow}>

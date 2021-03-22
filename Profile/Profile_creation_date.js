@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders the profile creation date card in the profile page.
+ * @param {*} param0 a list of items
+ * @returns the profile creation date card
+ */
 const Profile_Creation_Date = ({ containerStyle, iconName, Profile_Creation_Date }) => (
   <View style={[styles.container, containerStyle]}>
     <View style={styles.iconRow}>

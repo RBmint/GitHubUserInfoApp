@@ -77,8 +77,16 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * This class is in charge of rendering the repository screen.
+ */
 class Contact extends Component {
 
+  /**
+   * This default constructor will get data from the GraphQL query using the 
+   * token and set the data into the state.
+   * @param {*} props the props from parent
+   */
   constructor(props) {
     super(props)
     const accessToken = PrivateToken;
@@ -90,6 +98,9 @@ class Contact extends Component {
     this.setProfile();
   }
 
+  /**
+   * This async function will get the JSON data and set it into the state.
+   */
   async setProfile() {
     const response = await this.profile.getProfile();
     this.setState({
@@ -162,6 +173,10 @@ class Contact extends Component {
     />
   )
 
+  /**
+   * This function renders everything needed for the repository page.
+   * @returns the repository page
+   */
   render() {
     if (this.state.Error) {
       return (<View style={styles.container}>
@@ -185,6 +200,9 @@ class Contact extends Component {
     }
   }
 
+  /**
+   * Ignore some logs because they cannot be avoided.
+   */
   componentDidMount() {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     LogBox.ignoreLogs(['Each child in a list']);

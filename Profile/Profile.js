@@ -99,12 +99,22 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * This class has all the information regarding the profile page and is in charge
+ * of rendering all components inside it.
+ */
 class Profile extends Component {
 
+  /**
+   * The default constructor will try to fetch using GraphQL and the token
+   * and set the data into the state.
+   * @param {*} props parent props data
+   */
   constructor(props) {
     super(props)
     const accessToken = PrivateToken;
     this.state = {
+      //Default state is loading.
       Loading: true,
       Error: false
     };
@@ -112,9 +122,13 @@ class Profile extends Component {
     this.setProfile();
   }
 
+  /**
+   * This async function will get the JSON data and set it into the state.
+   */
   async setProfile() {
     const response = await this.profile.getProfile();
     this.setState({
+      //Not loading anymore.
       Loading: false
     })
     try{
@@ -297,6 +311,10 @@ class Profile extends Component {
     />
   )
 
+  /**
+   * Renders everything in the profile page.
+   * @returns the profile page
+   */
   render() {
     if (this.state.Error) {
       return (<View style={styles.container}>
@@ -333,6 +351,9 @@ class Profile extends Component {
     }
   }
 
+  /**
+   * Ignore some logs because they cannot be avoided.
+   */
   componentDidMount() {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     LogBox.ignoreLogs(['Failed child context type']);

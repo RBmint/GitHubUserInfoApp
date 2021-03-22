@@ -7,6 +7,12 @@ import contactData from './mocks/contact.json'
 import Profile from './Profile'
 import Repo from './Repo'
 
+/**
+ * An empty home screen. Could be used in later assignment and currently have a 
+ * button navigating to the profile screen.
+ * @param {navigation} param0 the navigation data
+ * @returns 
+ */
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1,alignItems:'center', justifyContent:'center'  }}>
@@ -18,21 +24,33 @@ function HomeScreen({ navigation }) {
   );
 }
 
+/**
+ * The main screen implemented. Contains information for a user in github.
+ * @returns the profile screen
+ */
 function ProfileScreen() {
   return (
     <Profile {...contactData}/> 
   )
 }
 
+/**
+ * The screen contains public repository information for a github user.
+ * @param {navigation} param0 the navigation data
+ * @returns the repo screen
+ */
 function RepositoriesScreen({ navigation }) {
   return (
     <Repo {...contactData}/>
-    // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    //   <Button onPress={() => navigation.goBack()} title="Go back" />
-    // </View>
   );
 }
 
+/**
+ * The screen contains follower data of the github user
+ * it has not been implemented yet
+ * @param {navigation} param0 the navigation data
+ * @returns an empty screen with a go back button
+ */
 function FollowersScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -42,6 +60,12 @@ function FollowersScreen({ navigation }) {
   );
 }
 
+/**
+ * The screen contains the user data that current user is following 
+ * it has not been implemented yet
+ * @param {navigation} param0 the navigation data
+ * @returns an empty screen with a go back button
+ */
 function FollowingScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -51,7 +75,13 @@ function FollowingScreen({ navigation }) {
   );
 }
 
+
 const Drawer = createDrawerNavigator();
+/**
+ * This function contains the main page of the app, which consists of a drawer 
+ * navigator and 5 distinct pages.
+ * @returns The drawer navigation with 5 tabs.
+ */
 export default function App() {
   return (
     <NavigationContainer>

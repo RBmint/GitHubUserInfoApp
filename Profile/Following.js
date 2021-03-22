@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Renders the following count card in the profile page and is touchable
+ * that would navigate to the follower count page.
+ * @param {*} param0 a list of items
+ * @returns the following count card
+ */
 function FollowingCount ({ containerStyle, iconName, FollowingCount }) {
   const navigation = useNavigation();
   return (
