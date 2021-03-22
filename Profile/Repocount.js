@@ -71,7 +71,7 @@ function RepoCount ({ containerStyle, iconName, RepoCount }) {
 
 RepoCount.propTypes = {
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  RepoCount: PropTypes.string.isRequired,
+  RepoCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   iconName: PropTypes.string.isRequired
 }
 

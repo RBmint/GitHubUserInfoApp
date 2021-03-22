@@ -18,7 +18,7 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function ProfileScreen(navigation) {
+function ProfileScreen() {
   return (
     <Profile {...contactData}/> 
   )

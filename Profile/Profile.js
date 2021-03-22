@@ -20,6 +20,8 @@ import Profile_Creation_Date from './Profile_creation_date'
 import RepoCount from './Repocount';
 import FollowerCount from './Follower'
 import FollowingCount from './Following'
+import ProfileFetch from '../Profile_fetch'
+import PrivateToken from './Token'
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#FFF',
@@ -93,6 +95,32 @@ const styles = StyleSheet.create({
 
 class Contact extends Component {
 
+  constructor(props) {
+    super(props)
+    const accessToken = PrivateToken;
+    this.state = {};
+    this.profile = new ProfileFetch(accessToken);
+    this.setProfile();
+  }
+
+  async setProfile() {
+    console.log("setprofile has been called once")
+    const response = await this.profile.getProfile();
+    console.log("mail" + response.data.viewer.email)
+    this.setState({
+      avatarUrl: response.data.viewer.avatarUrl,
+      name: response.data.viewer.name,
+      username: response.data.viewer.login,
+      bio: response.data.viewer.bio,
+      website: response.data.viewer.websiteUrl,
+      email: response.data.viewer.email,
+      publicRepoCount: response.data.viewer.repositories.totalCount,
+      followersCount: response.data.viewer.followers.totalCount,
+      followingCount: response.data.viewer.following.totalCount,
+      creationDate: response.data.viewer.createdAt
+    })
+  }
+
   renderHeader = () => {
     const {
       avatar,
@@ -111,9 +139,9 @@ class Contact extends Component {
           <View style={styles.headerColumn}>
             <Image
               style={styles.userImage}
-              source={{uri: avatar}}
+              source={{uri: this.state.avatarUrl}}
             />
-            <Text style={styles.NameText}>{name}</Text>
+            <Text style={styles.NameText}>{this.state.name}</Text>
             <View style={styles.iconNameRow}>
               <View>              
                 <Icon
@@ -124,7 +152,7 @@ class Contact extends Component {
               </View>
               <View style={styles.usernameRow}>
                 <Text style={styles.usernameText}>
-                  {username}
+                  {this.state.username}
                 </Text>
               </View>
             </View>
@@ -144,26 +172,7 @@ class Contact extends Component {
           <Email
             key={`email-${id}`}
             iconName={iconName}
-            email={email}
-          />
-        )
-      }}
-    />
-  )
-
-  renderEmailtest = () => (
-    <FlatList
-      contentContainerStyle={styles.basicContainer}
-      data={this.props.emails}
-      renderItem={(list) => {
-        const { email, id, iconName } = list.item
-        return (
-          <Emailtest
-            key={`email-${id}`}
-            iconName={iconName}
-            email={email}
-            onPressEmail={this.onPressEmail}
-
+            email={this.state.email == null ? "No data found" : this.state.email}
           />
         )
       }}
@@ -180,7 +189,7 @@ class Contact extends Component {
           <Website
             key={`email-${id}`}
             iconName={iconName}
-            website={website}
+            website={this.state.website == null ? "No data found" : this.state.website}
           />
         )
       }}
@@ -197,7 +206,7 @@ class Contact extends Component {
           <Bio
             key={`bio-${id}`}
             iconName={iconName}
-            bio={bio}
+            bio={this.state.bio}
           />
         )
       }}
@@ -214,7 +223,7 @@ class Contact extends Component {
           <Profile_Creation_Date
             key={`bio-${id}`}
             iconName={iconName}
-            Profile_Creation_Date={profile_cd}
+            Profile_Creation_Date={this.state.creationDate}
           />
         )
       }}
@@ -231,7 +240,7 @@ class Contact extends Component {
           <RepoCount
             key={`bio-${id}`}
             iconName={iconName}
-            RepoCount={repocount}
+            RepoCount={this.state.publicRepoCount}
           />
         )
       }}
@@ -248,7 +257,7 @@ class Contact extends Component {
           <FollowerCount
             key={`bio-${id}`}
             iconName={iconName}
-            followerCount={followerCount}
+            followerCount={this.state.followersCount}
           />
         )
       }}
@@ -265,7 +274,7 @@ class Contact extends Component {
           <FollowingCount
             key={`bio-${id}`}
             iconName={iconName}
-            FollowingCount={followingCount}
+            FollowingCount={this.state.followingCount}
           />
         )
       }}

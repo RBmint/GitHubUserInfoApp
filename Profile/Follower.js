@@ -71,7 +71,7 @@ function FollowerCount ({ containerStyle, iconName, followerCount }) {
 
 FollowerCount.propTypes = {
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  followerCount: PropTypes.string.isRequired,
+  followerCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   iconName: PropTypes.string.isRequired
 }
 

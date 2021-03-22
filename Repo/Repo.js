@@ -103,7 +103,7 @@ class Contact extends Component {
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
       renderItem={(list) => {
-        const { repoName, ownerName, repoDesc } = list.item
+        const { id, repoName, ownerName, repoDesc } = list.item
         return (
           <SingleRepo
             key={`bio-${id}`}
