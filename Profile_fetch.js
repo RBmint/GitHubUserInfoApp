@@ -13,14 +13,23 @@ export default class ProfileFetch {
                 bio
                 websiteUrl
                 email
-                repositories(privacy: PUBLIC) {
-                totalCount
+                repositories(privacy: PUBLIC, first: 100) {
+                    edges {
+                        node {
+                            description
+                            owner {
+                                login
+                            }
+                            name
+                        }
+                    }
+                    totalCount
                 }
                 followers {
-                totalCount
+                    totalCount
                 }
                 following {
-                totalCount
+                    totalCount
                 }
                 createdAt
             }
@@ -29,12 +38,15 @@ export default class ProfileFetch {
         const accessToken = this.accessToken;
         const fetch = require('node-fetch');
         const response = await fetch(url, {
+
+        // const response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({query}),
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             },
         })
+        // const jsonObj = await response.json();
 
         const jsonObj = await response.json();
         this.data = jsonObj;

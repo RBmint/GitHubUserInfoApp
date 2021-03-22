@@ -104,9 +104,7 @@ class Contact extends Component {
   }
 
   async setProfile() {
-    console.log("setprofile has been called once")
     const response = await this.profile.getProfile();
-    console.log("mail" + response.data.viewer.email)
     this.setState({
       avatarUrl: response.data.viewer.avatarUrl,
       name: response.data.viewer.name,
@@ -141,7 +139,7 @@ class Contact extends Component {
               style={styles.userImage}
               source={{uri: this.state.avatarUrl}}
             />
-            <Text style={styles.NameText}>{this.state.name}</Text>
+            <Text style={styles.NameText}>{this.state.name == null ? "No data found" : this.state.name}</Text>
             <View style={styles.iconNameRow}>
               <View>              
                 <Icon
@@ -152,7 +150,7 @@ class Contact extends Component {
               </View>
               <View style={styles.usernameRow}>
                 <Text style={styles.usernameText}>
-                  {this.state.username}
+                  {this.state.username == null ? "No data found" : this.state.username}
                 </Text>
               </View>
             </View>
@@ -187,7 +185,7 @@ class Contact extends Component {
         const { website, id, iconName } = list.item
         return (
           <Website
-            key={`email-${id}`}
+            key={`website-${id}`}
             iconName={iconName}
             website={this.state.website == null ? "No data found" : this.state.website}
           />
@@ -206,7 +204,7 @@ class Contact extends Component {
           <Bio
             key={`bio-${id}`}
             iconName={iconName}
-            bio={this.state.bio}
+            bio={this.state.bio == null ? "No data found" : this.state.bio}
           />
         )
       }}
@@ -221,9 +219,9 @@ class Contact extends Component {
         const { profile_cd, id, iconName } = list.item
         return (
           <Profile_Creation_Date
-            key={`bio-${id}`}
+            key={`profile_cd-${id}`}
             iconName={iconName}
-            Profile_Creation_Date={this.state.creationDate}
+            Profile_Creation_Date={this.state.creationDate == null ? "No data found" : this.state.creationDate}
           />
         )
       }}
@@ -238,9 +236,9 @@ class Contact extends Component {
         const { repocount, id, iconName } = list.item
         return (
           <RepoCount
-            key={`bio-${id}`}
+            key={`repocount-${id}`}
             iconName={iconName}
-            RepoCount={this.state.publicRepoCount}
+            RepoCount={this.state.publicRepoCount == null ? "No data found" : this.state.publicRepoCount}
           />
         )
       }}
@@ -255,9 +253,9 @@ class Contact extends Component {
         const { followerCount, id, iconName } = list.item
         return (
           <FollowerCount
-            key={`bio-${id}`}
+            key={`followerCount-${id}`}
             iconName={iconName}
-            followerCount={this.state.followersCount}
+            followerCount={this.state.followersCount == null ? "No data found" : this.state.followersCount}
           />
         )
       }}
@@ -272,9 +270,9 @@ class Contact extends Component {
         const { followingCount, id, iconName } = list.item
         return (
           <FollowingCount
-            key={`bio-${id}`}
+            key={`followingCount-${id}`}
             iconName={iconName}
-            FollowingCount={this.state.followingCount}
+            FollowingCount={this.state.followingCount == null ? "No data found" : this.state.followingCount}
           />
         )
       }}
@@ -309,6 +307,7 @@ class Contact extends Component {
 
   componentDidMount() {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs(['Failed child context type']);
   }
 }
 

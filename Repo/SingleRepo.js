@@ -44,22 +44,36 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
   },
+  separatorOffset: {
+    flex: 2,
+    flexDirection: 'row',
+  },
+  separator: {
+    borderColor: '#EDEDED',
+    borderWidth: 0.5,
+    flex: 8,
+    flexDirection: 'row',
+  },
 })
 
 function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc }) {
   return (
-    <View style={[styles.container, containerStyle]}>
-      <View style={styles.repoNameRow}>
-        <View style={styles.repoNameColumn}>
-          <Text style={styles.repoNameText}>{repoName}</Text>
+    <View>
+      <View style={[styles.container, containerStyle]}>
+        <View style={styles.repoNameRow}>
+          <View style={styles.repoNameColumn}>
+            <Text style={styles.repoNameText}>{repoName}</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.ownerNameText}>Owner: {ownerName}</Text>
+          <View style={styles.column}>
+            <Text style={styles.repoDescText}>{repoDesc}</Text>          
+          </View>
         </View>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.ownerNameText}>Owner: {ownerName}</Text>
-        <View style={styles.column}>
-          <Text style={styles.repoDescText}>{repoDesc}</Text>          
-        </View>
-      </View>
+      <View style={styles.separatorOffset} />
+      <View style={styles.separator} />
     </View>
   )
 }

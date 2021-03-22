@@ -8,11 +8,13 @@ import {
   StyleSheet,
   Text,
   View,
-  LogBox
+  LogBox,
 } from 'react-native'
 
 import Separator from './Separator'
 import SingleRepo from './SingleRepo';
+import ProfileFetch from '../Profile_fetch'
+import PrivateToken from '../Profile/Token'
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -70,6 +72,32 @@ const styles = StyleSheet.create({
 })
 
 class Contact extends Component {
+
+  constructor(props) {
+    super(props)
+    const accessToken = PrivateToken;
+    this.state = {};
+    this.profile = new ProfileFetch(accessToken);
+    this.setProfile();
+  }
+
+  async setProfile() {
+    const response = await this.profile.getProfile();
+    this.setState({
+      avatarUrl: response.data.viewer.avatarUrl,
+      name: response.data.viewer.name,
+      username: response.data.viewer.login,
+      bio: response.data.viewer.bio,
+      website: response.data.viewer.websiteUrl,
+      email: response.data.viewer.email,
+      publicRepoCount: response.data.viewer.repositories.totalCount,
+      followersCount: response.data.viewer.followers.totalCount,
+      followingCount: response.data.viewer.following.totalCount,
+      creationDate: response.data.viewer.createdAt,
+      edges: response.data.viewer.repositories.edges
+    })
+  }
+  
   renderHeader = () => {
     const {
       avatarBackground,
@@ -98,7 +126,7 @@ class Contact extends Component {
     )
   }
 
-  renderRepoCount = () => (
+  renderSingleRepo = (reponame, ownername, repodesc) => (
     <FlatList
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
@@ -106,10 +134,10 @@ class Contact extends Component {
         const { id, repoName, ownerName, repoDesc } = list.item
         return (
           <SingleRepo
-            key={`bio-${id}`}
-            repoName={repoName}
-            ownerName={ownerName}
-            repoDesc={repoDesc}
+            key={`repo-${id}`}
+            repoName={reponame}
+            ownerName={ownername}
+            repoDesc={repodesc==null ? "No Description!" : repodesc}
           />
         )
       }}
@@ -120,15 +148,9 @@ class Contact extends Component {
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
-          <Card containerStyle={styles.cardContainer}>
+          <Card containerStyle={styles.cardContainer}>        
             {this.renderHeader()}
-            {Separator()}           
-            {this.renderRepoCount()}
-            {Separator()}
-            {this.renderRepoCount()}
-            {Separator()}
-            {this.renderRepoCount()}
-            {Separator()}          
+            {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleRepo(n.node.name, n.node.owner.login, n.node.description))) : Separator()}
           </Card>
         </View>
       </ScrollView>
@@ -137,6 +159,7 @@ class Contact extends Component {
 
   componentDidMount() {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs(['Each child in a list']);
   }
 }
 
