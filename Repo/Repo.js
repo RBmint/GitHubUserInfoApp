@@ -69,6 +69,12 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     textAlign: 'center',
   },
+  errorLoadingStyle: {
+    fontSize: 60,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginTop: 100,
+  },
 })
 
 class Contact extends Component {
@@ -76,7 +82,10 @@ class Contact extends Component {
   constructor(props) {
     super(props)
     const accessToken = PrivateToken;
-    this.state = {};
+    this.state = {
+      Loading: true,
+      Error: false
+    };
     this.profile = new ProfileFetch(accessToken);
     this.setProfile();
   }
@@ -84,18 +93,27 @@ class Contact extends Component {
   async setProfile() {
     const response = await this.profile.getProfile();
     this.setState({
-      avatarUrl: response.data.viewer.avatarUrl,
-      name: response.data.viewer.name,
-      username: response.data.viewer.login,
-      bio: response.data.viewer.bio,
-      website: response.data.viewer.websiteUrl,
-      email: response.data.viewer.email,
-      publicRepoCount: response.data.viewer.repositories.totalCount,
-      followersCount: response.data.viewer.followers.totalCount,
-      followingCount: response.data.viewer.following.totalCount,
-      creationDate: response.data.viewer.createdAt,
-      edges: response.data.viewer.repositories.edges
+      Loading: false
     })
+    try {
+      this.setState({
+        avatarUrl: response.data.viewer.avatarUrl,
+        name: response.data.viewer.name,
+        username: response.data.viewer.login,
+        bio: response.data.viewer.bio,
+        website: response.data.viewer.websiteUrl,
+        email: response.data.viewer.email,
+        publicRepoCount: response.data.viewer.repositories.totalCount,
+        followersCount: response.data.viewer.followers.totalCount,
+        followingCount: response.data.viewer.following.totalCount,
+        creationDate: response.data.viewer.createdAt,
+        edges: response.data.viewer.repositories.edges
+      })
+    } catch(error) {
+      this.setState({
+        Error: true
+      });
+    }
   }
 
   renderHeader = () => {
@@ -145,16 +163,26 @@ class Contact extends Component {
   )
 
   render() {
-    return (
-      <ScrollView style={styles.scroll}>
-        <View style={styles.container}>
-          <Card containerStyle={styles.cardContainer}>        
-            {this.renderHeader()}
-            {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleRepo(n.node.name, n.node.owner.login, n.node.description))) : Separator()}
-          </Card>
-        </View>
-      </ScrollView>
-    )
+    if (this.state.Error) {
+      return (<View style={styles.container}>
+        <Text style={styles.errorLoadingStyle}>Fetch Error!</Text>
+      </View>)
+    } else if (this.state.Loading) {
+      return (<View style={styles.container}>
+        <Text style={styles.errorLoadingStyle}>Loading...</Text>
+      </View>)
+    } else {
+      return (
+        <ScrollView style={styles.scroll}>
+          <View style={styles.container}>
+            <Card containerStyle={styles.cardContainer}>        
+              {this.renderHeader()}
+              {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleRepo(n.node.name, n.node.owner.login, n.node.description))) : Separator()}
+            </Card>
+          </View>
+        </ScrollView>
+      )
+    }
   }
 
   componentDidMount() {
