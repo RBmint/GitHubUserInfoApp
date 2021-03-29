@@ -13,7 +13,7 @@ import {
 
 import Separator from './separator'
 import SingleRepo from './single_repo';
-import ProfileFetch from '../profile_fetch'
+import RepoFetch from '../fetch_all'
 import PrivateToken from '../Profile/token'
 
 const styles = StyleSheet.create({
@@ -94,15 +94,15 @@ class Repo extends Component {
       Loading: true,
       Error: false
     };
-    this.profile = new ProfileFetch(accessToken);
-    this.setProfile(this.props.newUser);
+    this.profile = new RepoFetch(accessToken);
+    this.setRepo(this.props.newUser);
   }
 
   /**
    * This async function will get the JSON data and set it into the state.
    */
-  async setProfile(username) {
-    const response = await this.profile.getProfile(username);
+  async setRepo(username) {
+    const response = await this.profile.getAllInfo(username);
     this.setState({
       Loading: false
     })
@@ -165,7 +165,7 @@ class Repo extends Component {
 
   componentDidUpdate(newProps){
     if (newProps.newUser != this.props.newUser) {  
-      this.setProfile(this.props.newUser);
+      this.setRepo(this.props.newUser);
       this.props.newUser = newProps.newUser;
     }
   }

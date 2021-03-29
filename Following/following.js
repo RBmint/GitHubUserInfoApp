@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 
 import Separator from './separator'
-import FollowingFetch from './following_fetch'
+import FollowingFetch from '../fetch_all'
 import PrivateToken from '../Profile/token'
 import SingleFollowing from './single_following'
 const styles = StyleSheet.create({
@@ -108,7 +108,7 @@ class Following extends Component {
    * This async function will get the JSON data and set it into the state.
    */
   async setFollowing(username) {
-    const response = await this.following.getFollowing(username);
+    const response = await this.following.getAllInfo(username);
     this.setState({
       Loading: false
     })

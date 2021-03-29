@@ -20,7 +20,7 @@ import Profile_Creation_Date from './profile_creation_date'
 import RepoCount from './repo_count';
 import FollowerCount from './follower'
 import FollowingCount from './following'
-import ProfileFetch from '../profile_fetch'
+import ProfileFetch from '../fetch_all'
 import PrivateToken from './token'
 const styles = StyleSheet.create({
   cardContainer: {
@@ -126,7 +126,7 @@ class Profile extends Component {
    * This async function will get the JSON data and set it into the state.
    */
   async setProfile(username) {
-    const response = await this.profile.getProfile(username);
+    const response = await this.profile.getAllInfo(username);
     this.setState({
       //Not loading anymore.
       Loading: false

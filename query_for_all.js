@@ -20,12 +20,26 @@ function setQuery(user) {
                     }
                     totalCount
                 }
-                followers {
+                followers(first: 100) {
                     totalCount
+                    edges {
+                        node {
+                            login
+                            name
+                            avatarUrl
+                        }
+                    }
                 }
-                following {
+                following(first: 100) {
                     totalCount
-                }
+                    edges {
+                        node {
+                            login
+                            name
+                            avatarUrl
+                        } 
+                    }
+                }                  
                 createdAt
             }
         }`;

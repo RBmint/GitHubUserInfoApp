@@ -1,5 +1,5 @@
-import getQuery from './profile_query'
-export default class ProfileFetch {
+import getQuery from './query_for_all'
+export default class FetchAll {
     /**
      * Default constructor which takes in the token information
      * @param {*} accessToken the token for github
@@ -14,7 +14,7 @@ export default class ProfileFetch {
      * This function is async so the render process could go first.
      * @returns the query result as a JSON object
      */
-    async getProfile(username) {
+    async getAllInfo(username) {
         query = getQuery(username);
         url = 'https://api.github.com/graphql';
         const accessToken = this.accessToken; 
