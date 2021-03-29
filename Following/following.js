@@ -98,11 +98,8 @@ class Following extends Component {
   }
 
   componentDidUpdate(newProps){
-    console.log("FOLLOWING SCREEN" + newProps.newUser);
-    console.log("current user is " + this.props.newUser)
     if (newProps.newUser != this.props.newUser) {  
       this.setFollowing(this.props.newUser);
-      console.log("Following set new user =" + this.props.newUser)    
       this.props.newUser = newProps.newUser;
     }
   }
@@ -120,7 +117,6 @@ class Following extends Component {
         edges: response.data.user.following.edges  
       })
     } catch(error) {
-      console.log(error);
       this.setState({
         Error: true
       });
@@ -206,6 +202,7 @@ class Following extends Component {
   componentDidMount() {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreLogs(["Each child in a list"]);
+    LogBox.ignoreLogs(["Failed child context"])
   }
 }
 

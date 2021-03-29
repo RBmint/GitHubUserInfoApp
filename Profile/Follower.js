@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
  * @param {*} param0 a list of items
  * @returns the follower count card
  */
-function FollowerCount ({ containerStyle, iconName, followerCount }) {
+function FollowerCount ({ containerStyle, iconName, followerCount, newUser }) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Followers')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Followers', {newUser:newUser})}>
       <View style={[styles.container, containerStyle]}>
         <View style={styles.iconRow}>
           <View style={styles.iconNameColumn}>

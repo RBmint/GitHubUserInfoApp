@@ -9,6 +9,7 @@ import contactData from './mocks/contact.json'
 import Profile from './Profile'
 import Repo from './Repo'
 import Following from './Following'
+import Follower from './Follower'
 /**
  * An empty home screen. Could be used in later assignment and currently have a 
  * button navigating to the profile screen.
@@ -18,10 +19,12 @@ import Following from './Following'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1,alignItems:'center', justifyContent:'center'  }}>
-      <Button onPress={() => navigation.navigate('Profile', {newUser:"rbmint"})} title="See profile of RBmint" />
-      <Button onPress={() => navigation.navigate('Repositories', {newUser:"rbmint"})} title="See repo of RBmint" />
-      <Button onPress={() => navigation.navigate('Following', {newUser:"rbmint"})} title="See following of RBmint" />
+      <Button onPress={() => navigation.navigate('Profile', {newUser:"RBmint"})} title="See profile of RBmint" />
+      <Button onPress={() => navigation.navigate('Repositories', {newUser:"RBmint"})} title="See repo of RBmint" />
+      <Button onPress={() => navigation.navigate('Following', {newUser:"RBmint"})} title="See following of RBmint" />
+      <Button onPress={() => navigation.navigate('Followers', {newUser:"RBmint"})} title="See follower of RBmint" />
     </View>
+    
   );
 }
 
@@ -31,7 +34,7 @@ function HomeScreen({ navigation }) {
  */
 function ProfileScreen({route,navigation}) {
   return (
-    <Profile newUser={route.params == null ? "rbmint" : route.params.newUser} {...contactData}/> 
+    <Profile newUser={route.params == null ? "RBmint" : route.params.newUser} {...contactData}/> 
   )
 }
 
@@ -43,7 +46,7 @@ function ProfileScreen({route,navigation}) {
 
 function RepositoriesScreen({route, navigation }) {
   return (
-    <Repo newUser={route.params == null ? "rbmint" : route.params.newUser} {...contactData}/>     
+    <Repo newUser={route.params == null ? "RBmint" : route.params.newUser} {...contactData}/>     
   );
 }
 
@@ -55,10 +58,7 @@ function RepositoriesScreen({route, navigation }) {
  */
 function FollowersScreen({route, navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text> Empty Follower Screen to be implemented next week.</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back" />
-    </View>
+    <Follower newUser={route.params == null ? "RBmint" : route.params.newUser}/>
   );
 }
 
@@ -70,7 +70,7 @@ function FollowersScreen({route, navigation }) {
  */
 function FollowingScreen({ route, navigation }) {
   return (
-    <Following newUser={route.params == null ? "rbmint" : route.params.newUser}/>
+    <Following newUser={route.params == null ? "RBmint" : route.params.newUser}/>
   );
 }
 

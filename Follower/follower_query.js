@@ -1,23 +1,19 @@
-query = `
-            query { 
-                user(login: "guanhuali2") { 
-                    avatarUrl
-                    name
-                    login
-                    bio
-                    websiteUrl
-                    email
-                    repositories(privacy: PUBLIC) {
-                        totalCount
-                    }
-                    followers {
-                        totalCount
-                    }
-                    following {
-                        totalCount
-                    }
-                    createdAt
+function setQuery(user) {
+  query = `
+    query { 
+        user (login:"`+ user +`") {
+            login
+            followers(first: 100) {
+              edges {
+                node {
+                  login
+                  name
+                  avatarUrl
                 }
+              }
             }
-        }`;
-export default query
+        }
+    }`;
+  return query;
+}
+export default setQuery

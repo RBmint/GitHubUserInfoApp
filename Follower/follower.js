@@ -12,10 +12,9 @@ import {
 } from 'react-native'
 
 import Separator from './separator'
-import SingleRepo from './single_repo';
-import ProfileFetch from '../Profile/profile_fetch'
+import FollowerFetch from './follower_fetch'
 import PrivateToken from '../Profile/token'
-
+import SingleFollower from './single_follower'
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#FFF',
@@ -78,9 +77,9 @@ const styles = StyleSheet.create({
 })
 
 /**
- * This class is in charge of rendering the repository screen.
+ * This class is in charge of rendering the follower screen.
  */
-class Contact extends Component {
+class Follower extends Component {
 
   /**
    * This default constructor will get data from the GraphQL query using the 
@@ -94,31 +93,28 @@ class Contact extends Component {
       Loading: true,
       Error: false
     };
-    this.profile = new ProfileFetch(accessToken);
-    this.setProfile();
+    this.follower = new FollowerFetch(accessToken);
+    this.setFollower(props.newUser);
+  }
+
+  componentDidUpdate(newProps){
+    if (newProps.newUser != this.props.newUser) {  
+      this.setFollower(this.props.newUser);
+      this.props.newUser = newProps.newUser;
+    }
   }
 
   /**
    * This async function will get the JSON data and set it into the state.
    */
-  async setProfile() {
-    const response = await this.profile.getProfile();
+  async setFollower(username) {
+    const response = await this.follower.getFollower(username);
     this.setState({
       Loading: false
     })
     try {
       this.setState({
-        avatarUrl: response.data.viewer.avatarUrl,
-        name: response.data.viewer.name,
-        username: response.data.viewer.login,
-        bio: response.data.viewer.bio,
-        website: response.data.viewer.websiteUrl,
-        email: response.data.viewer.email,
-        publicRepoCount: response.data.viewer.repositories.totalCount,
-        followersCount: response.data.viewer.followers.totalCount,
-        followingCount: response.data.viewer.following.totalCount,
-        creationDate: response.data.viewer.createdAt,
-        edges: response.data.viewer.repositories.edges
+        edges: response.data.user.followers.edges  
       })
     } catch(error) {
       this.setState({
@@ -142,11 +138,11 @@ class Contact extends Component {
         >
           <View style={styles.headerColumn}>        
             <Text style={styles.usernameText}>
-              {username}
+              {this.props.newUser}
             </Text>            
             <View style={styles.publicRepoNameRow}>
               <Text style={styles.publicRepoNameText}>
-                Public Repositories
+                Follower
               </Text>
             </View>
           </View>
@@ -155,18 +151,18 @@ class Contact extends Component {
     )
   }
 
-  renderSingleRepo = (reponame, ownername, repodesc) => (
+  renderSingleFollower = (avatarUrl, name, username) => (
     <FlatList
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
       renderItem={(list) => {
         const { id, repoName, ownerName, repoDesc } = list.item
         return (
-          <SingleRepo
+          <SingleFollower
             key={`repo-${id}`}
-            repoName={reponame}
-            ownerName={ownername}
-            repoDesc={repodesc==null ? "No Description!" : repodesc}
+            avatarUrl={avatarUrl}
+            name={name}
+            username={username}
           />
         )
       }}
@@ -174,8 +170,8 @@ class Contact extends Component {
   )
 
   /**
-   * This function renders everything needed for the repository page.
-   * @returns the repository page
+   * This function renders everything needed for the follower page.
+   * @returns the follower page
    */
   render() {
     if (this.state.Error) {
@@ -192,7 +188,7 @@ class Contact extends Component {
           <View style={styles.container}>
             <Card containerStyle={styles.cardContainer}>        
               {this.renderHeader()}
-              {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleRepo(n.node.name, n.node.owner.login, n.node.description))) : Separator()}
+              {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleFollower(n.node.avatarUrl, n.node.name, n.node.login))) : Separator()}
             </Card>
           </View>
         </ScrollView>
@@ -206,7 +202,8 @@ class Contact extends Component {
   componentDidMount() {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreLogs(["Each child in a list"]);
+    LogBox.ignoreLogs(["Failed child context"])
   }
 }
 
-export default Contact
+export default Follower

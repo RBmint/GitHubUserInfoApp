@@ -14,7 +14,6 @@ function setQuery(user) {
             }
         }
     }`;
-  console.log(query);
   return query;
 }
 export default setQuery

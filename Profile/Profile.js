@@ -20,7 +20,7 @@ import Profile_Creation_Date from './profile_creation_date'
 import RepoCount from './repo_count';
 import FollowerCount from './follower'
 import FollowingCount from './following'
-import ProfileFetch from './profile_fetch'
+import ProfileFetch from '../profile_fetch'
 import PrivateToken from './token'
 const styles = StyleSheet.create({
   cardContainer: {
@@ -289,6 +289,7 @@ class Profile extends Component {
             key={`followerCount-${id}`}
             iconName={iconName}
             followerCount={this.state.followersCount == null ? "No data found" : this.state.followersCount}
+            newUser = {this.props.newUser}
           />
         )
       }}
@@ -314,11 +315,8 @@ class Profile extends Component {
   )
 
   componentDidUpdate(newProps){
-    console.log("cdUcalled,new user is" + newProps.newUser);
-    console.log("current user is " + this.props.newUser)
     if (newProps.newUser != this.props.newUser) {  
       this.setProfile(this.props.newUser);
-      console.log("set new user =" + this.props.newUser)    
       this.props.newUser = newProps.newUser;
     }
   }

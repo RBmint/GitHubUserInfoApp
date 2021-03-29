@@ -13,7 +13,7 @@ import {
 
 import Separator from './separator'
 import SingleRepo from './single_repo';
-import ProfileFetch from '../Profile/profile_fetch'
+import ProfileFetch from '../profile_fetch'
 import PrivateToken from '../Profile/token'
 
 const styles = StyleSheet.create({
@@ -88,11 +88,7 @@ class Repo extends Component {
    * @param {*} props the props from parent
    */
   constructor(props) {
-    console.log("repo+++" + props.newUser)
-
     super(props)
-    console.log("after super" + this.props.newUser)
-
     const accessToken = PrivateToken;
     this.state = {
       Loading: true,
@@ -111,7 +107,6 @@ class Repo extends Component {
       Loading: false
     })
     try {
-      console.log(response.data)
       this.setState({
         edges: response.data.user.repositories.edges
       })
@@ -169,11 +164,8 @@ class Repo extends Component {
   )
 
   componentDidUpdate(newProps){
-    console.log("FOLLOWING SCREEN" + newProps.newUser);
-    console.log("current user is " + this.props.newUser)
     if (newProps.newUser != this.props.newUser) {  
       this.setProfile(this.props.newUser);
-      console.log("Following set new user =" + this.props.newUser)    
       this.props.newUser = newProps.newUser;
     }
   }
@@ -211,6 +203,7 @@ class Repo extends Component {
   componentDidMount() {
     LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreLogs(["Each child in a list"]);
+    LogBox.ignoreLogs(["Failed child context"])
   }
 }
 
