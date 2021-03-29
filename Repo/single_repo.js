@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
  * @param {*} param0 a list of items
  * @returns A single repository from user's public repositories.
  */
-function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc, username }) {
+function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc }) {
+  const navigation = useNavigation();
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
@@ -73,7 +74,7 @@ function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc, username }
         </View>
         <View style={styles.row}>
           <Text 
-            onPress={() => navigation.navigate("Repositories", {newUser:username})} 
+            onPress={() => navigation.navigate("Profile", {newUser:ownerName})} 
             style={styles.ownerNameText}>
             Owner: {ownerName}
           </Text>
@@ -93,7 +94,6 @@ SingleRepo.propTypes = {
   repoName: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
   repoDesc: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
 }
 
 SingleRepo.defaultProps = {

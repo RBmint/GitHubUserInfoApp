@@ -87,9 +87,7 @@ class Following extends Component {
    * @param {*} props the props from parent
    */
   constructor(props) {
-    console.log("following+++" + props.newUser)
     super(props)
-    console.log("after super" + this.props.newUser)
     const accessToken = PrivateToken;
     this.state = {
       Loading: true,
@@ -118,11 +116,9 @@ class Following extends Component {
       Loading: false
     })
     try {
-      console.log(response.data)
       this.setState({
         edges: response.data.user.following.edges  
       })
-      console.log(this.state.edges)
     } catch(error) {
       console.log(error);
       this.setState({

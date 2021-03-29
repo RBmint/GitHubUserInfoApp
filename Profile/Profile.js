@@ -271,6 +271,7 @@ class Profile extends Component {
             key={`repocount-${id}`}
             iconName={iconName}
             RepoCount={this.state.publicRepoCount == null ? "No data found" : this.state.publicRepoCount}
+            newUser = {this.props.newUser}
           />
         )
       }}

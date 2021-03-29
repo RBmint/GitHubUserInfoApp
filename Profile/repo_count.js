@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
  * @param {*} param0 a list of items
  * @returns the repository count card
  */
-function RepoCount ({ containerStyle, iconName, RepoCount }) {
+function RepoCount ({ containerStyle, iconName, RepoCount, newUser }) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Repositories')}>
+    <TouchableOpacity onPress={() => navigation.navigate('Repositories', {newUser:newUser})}>
       <View style={[styles.container, containerStyle]}>
         <View style={styles.iconRow}>
           <View style={styles.iconNameColumn}>

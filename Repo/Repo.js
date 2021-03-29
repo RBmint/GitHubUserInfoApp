@@ -88,7 +88,11 @@ class Repo extends Component {
    * @param {*} props the props from parent
    */
   constructor(props) {
+    console.log("repo+++" + props.newUser)
+
     super(props)
+    console.log("after super" + this.props.newUser)
+
     const accessToken = PrivateToken;
     this.state = {
       Loading: true,
@@ -107,6 +111,7 @@ class Repo extends Component {
       Loading: false
     })
     try {
+      console.log(response.data)
       this.setState({
         edges: response.data.user.repositories.edges
       })
@@ -145,7 +150,7 @@ class Repo extends Component {
     )
   }
 
-  renderSingleRepo = (reponame, ownername, repodesc, username) => (
+  renderSingleRepo = (reponame, ownername, repodesc) => (
     <FlatList
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
@@ -157,18 +162,17 @@ class Repo extends Component {
             repoName={reponame}
             ownerName={ownername}
             repoDesc={repodesc==null ? "No Description!" : repodesc}
-            username = {username}
           />
         )
       }}
     />
   )
-  
+
   componentDidUpdate(newProps){
     console.log("FOLLOWING SCREEN" + newProps.newUser);
     console.log("current user is " + this.props.newUser)
     if (newProps.newUser != this.props.newUser) {  
-      this.setFollowing(this.props.newUser);
+      this.setProfile(this.props.newUser);
       console.log("Following set new user =" + this.props.newUser)    
       this.props.newUser = newProps.newUser;
     }
