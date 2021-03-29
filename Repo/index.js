@@ -2,10 +2,10 @@ import React from 'react'
 
 import contactData from '../mocks/contact.json'
 
-import Repo from './repo'
+import Repo from './Repo'
 
-function ProfileScreen  (navigation) { 
-  return (<Repo {...contactData} navigation={navigation}/>)
+function RepoScreen  (props) { 
+  return (<Repo newUser = {props.newUser} {...contactData}/>)
 }
 
-export default ProfileScreen
+export default RepoScreen

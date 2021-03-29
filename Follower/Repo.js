@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 /**
  * This class is in charge of rendering the repository screen.
  */
-class Repo extends Component {
+class Contact extends Component {
 
   /**
    * This default constructor will get data from the GraphQL query using the 
@@ -95,20 +95,30 @@ class Repo extends Component {
       Error: false
     };
     this.profile = new ProfileFetch(accessToken);
-    this.setProfile(this.props.newUser);
+    this.setProfile();
   }
 
   /**
    * This async function will get the JSON data and set it into the state.
    */
-  async setProfile(username) {
-    const response = await this.profile.getProfile(username);
+  async setProfile() {
+    const response = await this.profile.getProfile();
     this.setState({
       Loading: false
     })
     try {
       this.setState({
-        edges: response.data.user.repositories.edges
+        avatarUrl: response.data.viewer.avatarUrl,
+        name: response.data.viewer.name,
+        username: response.data.viewer.login,
+        bio: response.data.viewer.bio,
+        website: response.data.viewer.websiteUrl,
+        email: response.data.viewer.email,
+        publicRepoCount: response.data.viewer.repositories.totalCount,
+        followersCount: response.data.viewer.followers.totalCount,
+        followingCount: response.data.viewer.following.totalCount,
+        creationDate: response.data.viewer.createdAt,
+        edges: response.data.viewer.repositories.edges
       })
     } catch(error) {
       this.setState({
@@ -132,7 +142,7 @@ class Repo extends Component {
         >
           <View style={styles.headerColumn}>        
             <Text style={styles.usernameText}>
-              {this.props.newUser}
+              {username}
             </Text>            
             <View style={styles.publicRepoNameRow}>
               <Text style={styles.publicRepoNameText}>
@@ -145,7 +155,7 @@ class Repo extends Component {
     )
   }
 
-  renderSingleRepo = (reponame, ownername, repodesc, username) => (
+  renderSingleRepo = (reponame, ownername, repodesc) => (
     <FlatList
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
@@ -157,22 +167,11 @@ class Repo extends Component {
             repoName={reponame}
             ownerName={ownername}
             repoDesc={repodesc==null ? "No Description!" : repodesc}
-            username = {username}
           />
         )
       }}
     />
   )
-  
-  componentDidUpdate(newProps){
-    console.log("FOLLOWING SCREEN" + newProps.newUser);
-    console.log("current user is " + this.props.newUser)
-    if (newProps.newUser != this.props.newUser) {  
-      this.setFollowing(this.props.newUser);
-      console.log("Following set new user =" + this.props.newUser)    
-      this.props.newUser = newProps.newUser;
-    }
-  }
 
   /**
    * This function renders everything needed for the repository page.
@@ -210,4 +209,4 @@ class Repo extends Component {
   }
 }
 
-export default Repo
+export default Contact

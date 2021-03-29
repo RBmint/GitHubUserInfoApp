@@ -1,6 +1,7 @@
-query = `
-            query { 
-            viewer { 
+function setQuery(user) {
+    query = `
+        query { 
+            user (login: "`+ user +`") { 
                 avatarUrl
                 name
                 login
@@ -28,4 +29,6 @@ query = `
                 createdAt
             }
         }`;
-export default query
+    return query;
+}
+export default setQuery

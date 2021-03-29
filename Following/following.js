@@ -12,10 +12,9 @@ import {
 } from 'react-native'
 
 import Separator from './separator'
-import SingleRepo from './single_repo';
-import ProfileFetch from '../Profile/profile_fetch'
+import FollowingFetch from './following_fetch'
 import PrivateToken from '../Profile/token'
-
+import SingleFollowing from './single_following'
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#FFF',
@@ -78,9 +77,9 @@ const styles = StyleSheet.create({
 })
 
 /**
- * This class is in charge of rendering the repository screen.
+ * This class is in charge of rendering the following screen.
  */
-class Repo extends Component {
+class Following extends Component {
 
   /**
    * This default constructor will get data from the GraphQL query using the 
@@ -88,29 +87,44 @@ class Repo extends Component {
    * @param {*} props the props from parent
    */
   constructor(props) {
+    console.log("following+++" + props.newUser)
     super(props)
+    console.log("after super" + this.props.newUser)
     const accessToken = PrivateToken;
     this.state = {
       Loading: true,
       Error: false
     };
-    this.profile = new ProfileFetch(accessToken);
-    this.setProfile(this.props.newUser);
+    this.following = new FollowingFetch(accessToken);
+    this.setFollowing(props.newUser);
+  }
+
+  componentDidUpdate(newProps){
+    console.log("FOLLOWING SCREEN" + newProps.newUser);
+    console.log("current user is " + this.props.newUser)
+    if (newProps.newUser != this.props.newUser) {  
+      this.setFollowing(this.props.newUser);
+      console.log("Following set new user =" + this.props.newUser)    
+      this.props.newUser = newProps.newUser;
+    }
   }
 
   /**
    * This async function will get the JSON data and set it into the state.
    */
-  async setProfile(username) {
-    const response = await this.profile.getProfile(username);
+  async setFollowing(username) {
+    const response = await this.following.getFollowing(username);
     this.setState({
       Loading: false
     })
     try {
+      console.log(response.data)
       this.setState({
-        edges: response.data.user.repositories.edges
+        edges: response.data.user.following.edges  
       })
+      console.log(this.state.edges)
     } catch(error) {
+      console.log(error);
       this.setState({
         Error: true
       });
@@ -136,7 +150,7 @@ class Repo extends Component {
             </Text>            
             <View style={styles.publicRepoNameRow}>
               <Text style={styles.publicRepoNameText}>
-                Public Repositories
+                Following
               </Text>
             </View>
           </View>
@@ -145,38 +159,27 @@ class Repo extends Component {
     )
   }
 
-  renderSingleRepo = (reponame, ownername, repodesc, username) => (
+  renderSingleFollowing = (avatarUrl, name, username) => (
     <FlatList
       contentContainerStyle={styles.basicContainer}
       data={this.props.repo1}
       renderItem={(list) => {
         const { id, repoName, ownerName, repoDesc } = list.item
         return (
-          <SingleRepo
+          <SingleFollowing
             key={`repo-${id}`}
-            repoName={reponame}
-            ownerName={ownername}
-            repoDesc={repodesc==null ? "No Description!" : repodesc}
-            username = {username}
+            avatarUrl={avatarUrl}
+            name={name}
+            username={username}
           />
         )
       }}
     />
   )
-  
-  componentDidUpdate(newProps){
-    console.log("FOLLOWING SCREEN" + newProps.newUser);
-    console.log("current user is " + this.props.newUser)
-    if (newProps.newUser != this.props.newUser) {  
-      this.setFollowing(this.props.newUser);
-      console.log("Following set new user =" + this.props.newUser)    
-      this.props.newUser = newProps.newUser;
-    }
-  }
 
   /**
-   * This function renders everything needed for the repository page.
-   * @returns the repository page
+   * This function renders everything needed for the following page.
+   * @returns the following page
    */
   render() {
     if (this.state.Error) {
@@ -193,7 +196,7 @@ class Repo extends Component {
           <View style={styles.container}>
             <Card containerStyle={styles.cardContainer}>        
               {this.renderHeader()}
-              {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleRepo(n.node.name, n.node.owner.login, n.node.description))) : Separator()}
+              {this.state.edges != null ? this.state.edges.map(n => (this.renderSingleFollowing(n.node.avatarUrl, n.node.name, n.node.login))) : Separator()}
             </Card>
           </View>
         </ScrollView>
@@ -210,4 +213,4 @@ class Repo extends Component {
   }
 }
 
-export default Repo
+export default Following

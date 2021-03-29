@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
  * @param {*} param0 a list of items
  * @returns A single repository from user's public repositories.
  */
-function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc, username }) {
+function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc }) {
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
@@ -72,11 +71,7 @@ function SingleRepo ({ containerStyle, repoName, ownerName, repoDesc, username }
           </View>
         </View>
         <View style={styles.row}>
-          <Text 
-            onPress={() => navigation.navigate("Repositories", {newUser:username})} 
-            style={styles.ownerNameText}>
-            Owner: {ownerName}
-          </Text>
+          <Text style={styles.ownerNameText}>Owner: {ownerName}</Text>
           <View style={styles.column}>
             <Text style={styles.repoDescText}>{repoDesc}</Text>          
           </View>
@@ -92,8 +87,7 @@ SingleRepo.propTypes = {
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   repoName: PropTypes.string.isRequired,
   ownerName: PropTypes.string.isRequired,
-  repoDesc: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  repoDesc: PropTypes.string.isRequired
 }
 
 SingleRepo.defaultProps = {

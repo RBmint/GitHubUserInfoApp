@@ -2,11 +2,13 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { CommonActions, NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import contactData from './mocks/contact.json'
 import Profile from './Profile'
 import Repo from './Repo'
-
+import Following from './Following'
 /**
  * An empty home screen. Could be used in later assignment and currently have a 
  * button navigating to the profile screen.
@@ -16,10 +18,9 @@ import Repo from './Repo'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1,alignItems:'center', justifyContent:'center'  }}>
-      <Text>
-        This is currently empty!
-      </Text>
-      <Button onPress={() => navigation.navigate('Profile')} title="See profile screen" />
+      <Button onPress={() => navigation.navigate('Profile', {newUser:"rbmint"})} title="See profile of RBmint" />
+      <Button onPress={() => navigation.navigate('Repositories', {newUser:"rbmint"})} title="See repo of RBmint" />
+      <Button onPress={() => navigation.navigate('Following', {newUser:"rbmint"})} title="See following of RBmint" />
     </View>
   );
 }
@@ -28,9 +29,9 @@ function HomeScreen({ navigation }) {
  * The main screen implemented. Contains information for a user in github.
  * @returns the profile screen
  */
-function ProfileScreen() {
+function ProfileScreen({route,navigation}) {
   return (
-    <Profile {...contactData}/> 
+    <Profile newUser={route.params == null ? "rbmint" : route.params.newUser} {...contactData}/> 
   )
 }
 
@@ -39,9 +40,10 @@ function ProfileScreen() {
  * @param {navigation} param0 the navigation data
  * @returns the repo screen
  */
-function RepositoriesScreen({ navigation }) {
+
+function RepositoriesScreen({route, navigation }) {
   return (
-    <Repo {...contactData}/>
+    <Repo newUser={route.params == null ? "rbmint" : route.params.newUser} {...contactData}/>     
   );
 }
 
@@ -51,7 +53,7 @@ function RepositoriesScreen({ navigation }) {
  * @param {navigation} param0 the navigation data
  * @returns an empty screen with a go back button
  */
-function FollowersScreen({ navigation }) {
+function FollowersScreen({route, navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text> Empty Follower Screen to be implemented next week.</Text>
@@ -66,12 +68,9 @@ function FollowersScreen({ navigation }) {
  * @param {navigation} param0 the navigation data
  * @returns an empty screen with a go back button
  */
-function FollowingScreen({ navigation }) {
+function FollowingScreen({ route, navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text> Empty Following Screen to be implemented next week.</Text>
-      <Button onPress={() => navigation.goBack()} title="Go back" />
-    </View>
+    <Following newUser={route.params == null ? "rbmint" : route.params.newUser}/>
   );
 }
 
@@ -87,7 +86,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen}/>
         <Drawer.Screen name="Repositories" component={RepositoriesScreen}/>
         <Drawer.Screen name="Followers" component={FollowersScreen}/>
         <Drawer.Screen name="Following" component={FollowingScreen}/>

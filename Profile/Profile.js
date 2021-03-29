@@ -20,7 +20,7 @@ import Profile_Creation_Date from './profile_creation_date'
 import RepoCount from './repo_count';
 import FollowerCount from './follower'
 import FollowingCount from './following'
-import ProfileFetch from '../profile_fetch'
+import ProfileFetch from './profile_fetch'
 import PrivateToken from './token'
 const styles = StyleSheet.create({
   cardContainer: {
@@ -119,30 +119,30 @@ class Profile extends Component {
       Error: false
     };
     this.profile = new ProfileFetch(accessToken);
-    this.setProfile();
+    this.setProfile(this.props.newUser);
   }
-
+  
   /**
    * This async function will get the JSON data and set it into the state.
    */
-  async setProfile() {
-    const response = await this.profile.getProfile();
+  async setProfile(username) {
+    const response = await this.profile.getProfile(username);
     this.setState({
       //Not loading anymore.
       Loading: false
     })
     try{
       this.setState({
-        avatarUrl: response.data.viewer.avatarUrl,
-        name: response.data.viewer.name,
-        username: response.data.viewer.login,
-        bio: response.data.viewer.bio,
-        website: response.data.viewer.websiteUrl,
-        email: response.data.viewer.email,
-        publicRepoCount: response.data.viewer.repositories.totalCount,
-        followersCount: response.data.viewer.followers.totalCount,
-        followingCount: response.data.viewer.following.totalCount,
-        creationDate: response.data.viewer.createdAt
+        avatarUrl: response.data.user.avatarUrl,
+        name: response.data.user.name,
+        username: response.data.user.login,
+        bio: response.data.user.bio,
+        website: response.data.user.websiteUrl,
+        email: response.data.user.email,
+        publicRepoCount: response.data.user.repositories.totalCount,
+        followersCount: response.data.user.followers.totalCount,
+        followingCount: response.data.user.following.totalCount,
+        creationDate: response.data.user.createdAt
       })
     } catch(error) {
       this.setState({
@@ -164,7 +164,7 @@ class Profile extends Component {
         <ImageBackground
           style={styles.headerBackgroundImage}
           blurRadius={10}
-          source={{uri: avatarBackground}}
+          source={{uri: "https://i.imgur.com/rXVcgTZ.jpg"}}
         >
           <View style={styles.headerColumn}>
             <Image
@@ -305,17 +305,29 @@ class Profile extends Component {
             key={`followingCount-${id}`}
             iconName={iconName}
             FollowingCount={this.state.followingCount == null ? "No data found" : this.state.followingCount}
+            newUser = {this.props.newUser}
           />
         )
       }}
     />
   )
 
+  componentDidUpdate(newProps){
+    console.log("cdUcalled,new user is" + newProps.newUser);
+    console.log("current user is " + this.props.newUser)
+    if (newProps.newUser != this.props.newUser) {  
+      this.setProfile(this.props.newUser);
+      console.log("set new user =" + this.props.newUser)    
+      this.props.newUser = newProps.newUser;
+    }
+  }
+
   /**
    * Renders everything in the profile page.
    * @returns the profile page
    */
   render() {
+
     if (this.state.Error) {
       return (<View style={styles.container}>
         <Text style={styles.errorLoadingStyle}>Fetch Error!</Text>
@@ -355,8 +367,8 @@ class Profile extends Component {
    * Ignore some logs because they cannot be avoided.
    */
   componentDidMount() {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    LogBox.ignoreLogs(['Failed child context type']);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreLogs(["Failed child context type"]);
   }
 }
 
