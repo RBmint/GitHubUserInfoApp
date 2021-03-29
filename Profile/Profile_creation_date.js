@@ -61,7 +61,7 @@ const Profile_Creation_Date = ({ containerStyle, iconName, Profile_Creation_Date
     </View>
     <View style={styles.row}>     
       <View style={styles.column}>
-        <Text style={styles.text}>{Profile_Creation_Date}</Text>
+        <Text style={styles.text}>{Profile_Creation_Date.toString().split('T')[0]}</Text>
       </View>
     </View>
   </View>

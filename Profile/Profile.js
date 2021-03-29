@@ -12,16 +12,16 @@ import {
   LogBox
 } from 'react-native'
 
-import Email from './Email'
-import Separator from './Separator'
-import Bio from './Bio'
-import Website from './Website'
-import Profile_Creation_Date from './Profile_creation_date'
-import RepoCount from './Repocount';
-import FollowerCount from './Follower'
-import FollowingCount from './Following'
-import ProfileFetch from '../Profile_fetch'
-import PrivateToken from './Token'
+import Email from './email'
+import Separator from './separator'
+import Bio from './bio'
+import Website from './website'
+import Profile_Creation_Date from './profile_creation_date'
+import RepoCount from './repo_count';
+import FollowerCount from './follower'
+import FollowingCount from './following'
+import ProfileFetch from '../profile_fetch'
+import PrivateToken from './token'
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#FFF',

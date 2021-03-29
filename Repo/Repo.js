@@ -11,10 +11,10 @@ import {
   LogBox,
 } from 'react-native'
 
-import Separator from './Separator'
-import SingleRepo from './SingleRepo';
-import ProfileFetch from '../Profile_fetch'
-import PrivateToken from '../Profile/Token'
+import Separator from './separator'
+import SingleRepo from './single_repo';
+import ProfileFetch from '../profile_fetch'
+import PrivateToken from '../Profile/token'
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -204,8 +204,8 @@ class Contact extends Component {
    * Ignore some logs because they cannot be avoided.
    */
   componentDidMount() {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    LogBox.ignoreLogs(['Each child in a list']);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreLogs(["Each child in a list"]);
   }
 }
 
