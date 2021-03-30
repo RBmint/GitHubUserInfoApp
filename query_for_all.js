@@ -1,5 +1,5 @@
 function setQuery(user) {
-    query = `
+    const query = `
         query { 
             user (login: "`+ user +`") { 
                 avatarUrl

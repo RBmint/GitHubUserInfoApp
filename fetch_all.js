@@ -18,20 +18,16 @@ export default class FetchAll {
         query = getQuery(username);
         url = 'https://api.github.com/graphql';
         const accessToken = this.accessToken; 
-        // try {
-            const fetch = require('node-fetch');
-            const response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify({query}),
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-            })
-            const jsonObj = await response.json();
-            this.data = jsonObj;
-        // } catch (error) {
-            
-        // }
+        const fetch = require('node-fetch');
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({query}),
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        })
+        const jsonObj = await response.json();
+        this.data = jsonObj;
         return jsonObj;
     }
 }

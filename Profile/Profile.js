@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Text,
   View,
-  LogBox
+  LogBox,
 } from 'react-native'
 
 import Email from './email'
@@ -152,13 +152,6 @@ class Profile extends Component {
   }
 
   renderHeader = () => {
-    const {
-      avatar,
-      avatarBackground,
-      name,
-      username,
-    } = this.props
-
     return (
       <View style={styles.headerContainer}>
         <ImageBackground
@@ -326,7 +319,6 @@ class Profile extends Component {
    * @returns the profile page
    */
   render() {
-
     if (this.state.Error) {
       return (<View style={styles.container}>
         <Text style={styles.errorLoadingStyle}>Fetch Error!</Text>

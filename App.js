@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Button, Text, View } from 'react-native';
-import { CommonActions, NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { Button, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import contactData from './mocks/contact.json'
 import Profile from './Profile'
@@ -30,9 +29,10 @@ function HomeScreen({ navigation }) {
 
 /**
  * The main screen implemented. Contains information for a user in github.
+ * @param {route} param0 the new user data
  * @returns the profile screen
  */
-function ProfileScreen({route,navigation}) {
+function ProfileScreen({ route }) {
   return (
     <Profile newUser={route.params == null ? "RBmint" : route.params.newUser} {...contactData}/> 
   )
@@ -40,11 +40,11 @@ function ProfileScreen({route,navigation}) {
 
 /**
  * The screen contains public repository information for a github user.
- * @param {navigation} param0 the navigation data
+ * @param {route} param0 the new user data
  * @returns the repo screen
  */
 
-function RepositoriesScreen({route, navigation }) {
+function RepositoriesScreen({ route }) {
   return (
     <Repo newUser={route.params == null ? "RBmint" : route.params.newUser} {...contactData}/>     
   );
@@ -52,11 +52,10 @@ function RepositoriesScreen({route, navigation }) {
 
 /**
  * The screen contains follower data of the github user
- * it has not been implemented yet
- * @param {navigation} param0 the navigation data
+ * @param {route} param0 the new user data
  * @returns an empty screen with a go back button
  */
-function FollowersScreen({route, navigation }) {
+function FollowersScreen({ route }) {
   return (
     <Follower newUser={route.params == null ? "RBmint" : route.params.newUser}/>
   );
@@ -64,11 +63,10 @@ function FollowersScreen({route, navigation }) {
 
 /**
  * The screen contains the user data that current user is following 
- * it has not been implemented yet
- * @param {navigation} param0 the navigation data
+ * @param {route} param0 the new user data
  * @returns an empty screen with a go back button
  */
-function FollowingScreen({ route, navigation }) {
+function FollowingScreen({ route }) {
   return (
     <Following newUser={route.params == null ? "RBmint" : route.params.newUser}/>
   );
