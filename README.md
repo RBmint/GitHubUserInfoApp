@@ -1,4 +1,4 @@
-# sp21-cs242-assignment3
+# GitHub User Information App
 **Project description**
 
 This project has 3 parts:
@@ -8,10 +8,6 @@ This project has 3 parts:
 2. Present the data from the API to a profile page
 
 3. Build multiple pages and navigate through each of them
-
-**Motivation**
-
-CS242 SP21 Assignment 3.0
 
 **Code style**
 - javascript-standard-style
@@ -29,7 +25,3 @@ install expo first
 run `npm -install` for all related packages
 
 then run `npm -start` and use an emulator
-
-**Tests**
-
-Currently no test is presented
